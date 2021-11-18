@@ -1,6 +1,7 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     projectile = sprites.createProjectileFromSprite(assets.image`Bullet`, ship, 0, -140)
-    projectile.startEffect(effects.coolRadial, 100)
+    projectile.startEffect(effects.fire, 100)
+    console.log("Weapon Launched")
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprite.destroy()
@@ -90,9 +91,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     scene.cameraShake(4, 500)
     sprite.startEffect(effects.halo, 200)
     info.setScore(10)
+    console.log("Set score to 10")
 })
 let projectile: Sprite = null
 let ship: Sprite = null
+scene.setBackgroundColor(9)
 let asteroids = [
 sprites.castle.heroFrontAttack4,
 sprites.castle.heroFrontAttack3,
@@ -104,10 +107,11 @@ ship.setStayInScreen(true)
 ship.bottom = 120
 controller.moveSprite(ship, 100, 100)
 info.setLife(5)
-effects.starField.startScreenEffect()
+effects.clouds.startScreenEffect()
 forever(function () {
     if (info.score() == 60) {
         game.over(true)
+        console.log("Won")
     }
 })
 forever(function () {
