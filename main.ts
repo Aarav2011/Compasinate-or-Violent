@@ -89,6 +89,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     scene.cameraShake(4, 500)
     sprite.startEffect(effects.halo, 200)
+    info.setScore(10)
 })
 let projectile: Sprite = null
 let ship: Sprite = null
@@ -105,10 +106,12 @@ controller.moveSprite(ship, 100, 100)
 info.setLife(5)
 effects.starField.startScreenEffect()
 forever(function () {
-	
+    if (info.score() == 60) {
+        game.over(true)
+    }
 })
 forever(function () {
-    pause(1000)
+    pause(500)
     info.changeScoreBy(1)
 })
 game.onUpdateInterval(500, function () {
